@@ -1,3 +1,8 @@
+#############################################################################################################
+#PROYECTO: Aplica en el trabajo Modulo 5
+#NOMBRE: Ivan Alejandro Anzaldo Baca
+#FECHA: 23/05/2023
+#############################################################################################################
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -11,6 +16,7 @@ st.set_page_config(page_title="Dashboard RETO",
                    layout="centered", 
                    initial_sidebar_state="auto", 
                    menu_items={'About': "# This is a header. This is an *extremely* cool app!"})
+# Inicio
 st.title('EMPLOYEES DASHBOARD')
 st.header('Pequeña descripción')
 st.markdown("""<p>Este dashboard permite mostrar el dataframe completo, igualmente filtrar por:</p>
@@ -28,7 +34,7 @@ st.markdown("""<p>Este dashboard permite mostrar el dataframe completo, igualmen
     <li>Gr&aacute;fica de tiempo de servicion vs tasa de deserci&oacute;n.</li>
     <li>Indice de deserci&oacute;n por ciudad.</li>
 </ul>""", unsafe_allow_html=True)
-
+# Funciones 
 @st.cache
 def load_data(nrows = 500):
     data = pd.read_csv('Employees.csv', nrows=nrows)
@@ -51,8 +57,8 @@ def unicos(columna):
     data = pd.read_csv('Employees.csv')
     return data[columna].unique() 
 
+# Creacion del sidebar
 employees_df = load_data(500)
-
 sidebar = st.sidebar
 sidebar.markdown("<h1 style='text-align: center; color: green;'>Sidebar filters</h1>", unsafe_allow_html=True)
 sidebar.markdown('___')
@@ -76,7 +82,7 @@ sidebar.markdown('___')
 selectbox_3   = sidebar.selectbox('Seleccionar la unidad funcional', unicos('Unit') )
 Filtrar_4 = sidebar.button('Filtrar', key='4')
 sidebar.markdown('___')
-
+# Condiciones sidebar
 if(checkbox_1):
     st.header('DataFrame Total')
     st.dataframe(employees_df)
@@ -118,7 +124,6 @@ fig2, ax2 = plt.subplots()
 sns.countplot(x = employees['Unit'], ax=ax2)
 plt.xticks(rotation=90)
 c2.pyplot(fig2)
-
 # Scatter plots
 c1, c2= st.columns((1, 1))
 fig4, ax4 = plt.subplots()
@@ -129,7 +134,6 @@ c1.header('Gráfica de edad vs tasa de deserción')
 c2.header('Gráfica de tiempo de servicion vs tasa de deserción')
 c1.pyplot(fig4)
 c2.pyplot(fig5)
-
 # desercion por ciudad
 st.header('Indice de deserción por ciudad')
 fig3, ax3 = plt.subplots()
