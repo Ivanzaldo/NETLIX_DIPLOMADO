@@ -137,7 +137,7 @@ c2.pyplot(fig5)
 # desercion por ciudad
 st.header('Indice de deserción por ciudad')
 fig3, ax3 = plt.subplots()
-employees_by_hometown = employees.groupby('Hometown').mean()
+employees_by_hometown = employees.groupby('Hometown')['Attrition_rate'].mean()
 employees_by_hometown['Attrition_rate'].plot(ax=ax3)
 plt.xticks(rotation=90)
 st.pyplot(fig3)
